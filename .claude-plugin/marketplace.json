@@ -1,0 +1,6 @@
+{
+  "name": "claude-usage-band",
+  "owner": { "name": "Axyz02" },
+  "description": "Barra de uso (contexto, límites 5h/7d, costo) sobre el prompt de Claude Code",
+  "plugins": [{ "name": "usage-band", "source": "./" }]
+}

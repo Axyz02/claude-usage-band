@@ -1,0 +1,6 @@
+{
+  "name": "usage-band",
+  "version": "0.1.0",
+  "description": "Barra sobre el prompt con contexto, límites de 5h/7d y costo estimado; se alterna con /usage-band",
+  "types": "./types/index.d.ts"
+}
