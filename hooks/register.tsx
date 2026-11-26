@@ -53,6 +53,14 @@ function bar(percent: number): [string, string] {
   return [filled, empty]
 }
 
+// Porcentaje entero, salvo por debajo de 1% (para no mostrar 0% cuando ya hay uso).
+function formatPercent(percent: number): string {
+  const clamped = Math.min(Math.max(percent, 0), 100)
+  if (clamped > 0 && clamped < 1) return '<1%'
+
+  return `${Math.round(clamped)}%`
+}
+
 function untilReset(resetsAt: string | undefined, now: number): string {
   if (resetsAt === undefined) return ''
   const ms = Date.parse(resetsAt) - now
@@ -109,11 +117,13 @@ export const register: Register = on => {
     const now = await $.clock.now()
     const meter = (percent: number) => {
       const [filled, empty] = bar(percent)
+      const level = levelColor(percent)
 
       return (
         <Text>
-          <Text color={levelColor(percent) ?? 'claude'}>{filled}</Text>
+          <Text color={level ?? 'claude'}>{filled}</Text>
           <Text dimColor>{empty}</Text>
+          <Text color={level} bold={level !== undefined}> {formatPercent(percent)}</Text>
         </Text>
       )
     }
